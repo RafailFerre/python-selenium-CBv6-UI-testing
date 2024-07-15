@@ -10,30 +10,29 @@ import time
 
 def login_test():
     # Инициализация драйвера для браузера Chrome с опциями
-    chrome_options = webdriver.ChromeOptions()
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    options = webdriver.ChromeOptions()
+    driver = webdriver.Chrome(options=options)
 
     try:
         # Переход на страницу логина
         driver.get('https://clientbase.pasv.us/v6/user/login')
-        time.sleep(2)
+        # time.sleep(1)
 
         # Поиск поля ввода для имени пользователя и ввод данных
         username_field = driver.find_element(By.NAME, 'email')
         username_field.send_keys('test@gmail.com')
-        time.sleep(2)
+        time.sleep(1)
 
         # Поиск поля ввода для пароля и ввод данных
         password_field = driver.find_element(By.NAME, 'password')
         password_field.send_keys('12345')
-        time.sleep(2)
+        time.sleep(1)
 
         # Поиск кнопки логина и клик по ней
         # login_button = driver.find_element(By.CLASS_NAME, 'submit')
         login_button = driver.find_element(By.CSS_SELECTOR, '.btn-sign.btn.btn-primary')
         login_button.click()
-        time.sleep(2)
+        time.sleep(5)
 
         # Явное ожидание, пока элемент, указывающий на успешный логин, не станет видимым
         WebDriverWait(driver, 10).until(
@@ -49,10 +48,10 @@ def login_test():
             print('Login test failed!')
     except Exception as e:
         print('An error occurred during the login test:', e)
-        time.sleep(10)
-    # finally:
-    #     # Закрытие браузера
-    #     driver.quit()
+        time.sleep(5)
+    finally:
+        # Закрытие браузера
+        driver.quit()
 
 # Запуск теста
 if __name__ == "__main__":
